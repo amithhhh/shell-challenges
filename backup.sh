@@ -4,8 +4,8 @@ echo "Enter the Source path!"
 read source
 echo "Enter the Destination path!"
 read destination
-echo "Enter How much copies you want to keep"
-read max
+max=3
+touch backup.txt
 
 if [ -d $source ];then
 	echo "checking source path"
@@ -25,6 +25,7 @@ else
         mkdir $destination
 fi
 
+
 echo "starting backup process!"
 sleep 5
 echo "creating timestamped directory"
@@ -37,7 +38,7 @@ sleep 3
 echo "retaining $max directories"
 
 count=0
-for i in `ls -r $destination`
+for i in `find "$destination" -type d | sort -r`
 do
 	if [ $count -lt $max ];then
 		continue
